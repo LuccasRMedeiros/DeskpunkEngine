@@ -1,25 +1,19 @@
+#include <deskpunk_error.h>
 #include <SDL2/SDL.h>
 
 int main(void)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) // If SDL_Init fails exit the program
-    {
-        fprintf(stderr, "\e[0;31mDESKPUNKERROR: %s\e[0m\n", SDL_GetError());
-        exit(-1);
-    }
-
+    deskpunk_error_detect((SDL_Init(SDL_INIT_VIDEO) != 0)); // If SDL_Init fails exit the program
+    
     SDL_Window *window = SDL_CreateWindow(  "Deskpunk Example", 
                                             SDL_WINDOWPOS_CENTERED, 
                                             SDL_WINDOWPOS_CENTERED, 
                                             640, 
                                             480, 
                                             SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
-    if (!window) // When window come back null the program exit
-    {
-        fprintf(stderr, "\e[0;31mDESKPUNKERROR: %s\e[0m\n", SDL_GetError());
-        exit(-1);
-    }
-
+    
+    deskpunk_error_detect((window == NULL)); // When window come back null the program exit
+    
     SDL_Surface *surface = SDL_GetWindowSurface(window);
     
     uint8_t keep_looping = 1;

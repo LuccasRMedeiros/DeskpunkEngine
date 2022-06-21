@@ -1,3 +1,7 @@
+# Files that are not intended to go the repository
 *.swp
 deskpunk
 deskpunk_example
+
+# Directories
+build/
