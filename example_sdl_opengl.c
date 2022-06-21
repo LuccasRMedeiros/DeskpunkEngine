@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) // If SDL_Init fails exit the program
     {
         fprintf(stderr, "\e[0;31mDESKPUNKERROR: %s\e[0m\n", SDL_GetError());
         exit(-1);
@@ -22,16 +22,23 @@ int main(void)
 
     SDL_Surface *surface = SDL_GetWindowSurface(window);
     
-    const Uint8 *keyState = SDL_GetKeyboardState(NULL);
-    while (!keyState[SDL_SCANCODE_ESCAPE])
+    uint8_t keep_looping = 1;
+    while (keep_looping)
     {
-        keyState = SDL_GetKeyboardState(NULL);
+        SDL_Event event;
+        if (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+            case SDL_KEYDOWN:
+                if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+                    keep_looping = 0;
+            break;
+            }
+        }
 
         SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0xFF, 0x0, 0x0));
         SDL_UpdateWindowSurface(window);
-
-        printf("\rEsc state: %d", keyState[SDL_SCANCODE_ESCAPE]);
-        fflush(stdout);
     }
 
     SDL_DestroyWindow(window);
