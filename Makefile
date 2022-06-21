@@ -6,9 +6,10 @@ NAME = deskpunk
 
 CC = gcc
 
-DEBUG = -g -fsanitize=address
+# Set it at compile time if needed
+DEBUG =
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -std=c99
 
 BUILD = build
 
@@ -18,30 +19,30 @@ SOURCE =
 
 INCLUDES = 
 
-LIBS = 
+LIBS = -lSDL2 -lSDL2main
 
 OBJECTS = $(addprefix $(BUILD)/, $(SOURCE:%.c=%.o))
 
-COMPILE_RULES = 
+COMPILE_RULES = $(CC) $(DEBUG) $(FLAGS) $(INCLUDES)
 
-all: compile_normal $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(COMPILE_RULES) $(OBJECTS) $(LIBS) main.c -o $@
+	$(COMPILE_RULES) $(OBJECTS) $(LIBS) main.c -o $(NAME)
 
-example: compile_debug $(EXAMPLE)
-
-$(EXAMPLE): $(OBJECTS) example_sdl_opengl.c
-	$(COMPILE_RULES) $(OBJECTS) $(LIBS) $@ -o $(NAME)_example
+example: $(OBJECTS)
+	$(COMPILE_RULES) $(OBJECTS) $(EXAMPLE) $(LIBS) -o $(NAME)_example
 
 $(BUILD)/%.o: %.c
 	mkdir -p $(BUILD)
 	$(COMPILE_RULES) $< -c -o $@
 
-compile_normal:
-	$(COMPILE_RULES) = $(CC) $(FLAGS) $(INCLUDES)
+fclean: clean
+	rm -f $(NAME)
 
-compile_debug:
-	$(COMPILE_RULES) = $(CC) $(DEBUG) $(FLAGS) $(INCLUDES)
+clean:
+	rm -rf $(BUILD)
 
-.PHONY: all example
+re: fclean all
+
+.PHONY: all example clean fclean re
