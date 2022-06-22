@@ -1,5 +1,18 @@
 #include "deskpunk_core.h"
 
+#include <string.h>
+
+/**
+ * @brief Destroy everthing, clean the memory and let the program finish
+ */
+void deskpunk_core_quit(void)
+{
+    SDL_DestroyWindow(deskpunk_mainWindow.desk);
+    SDL_Quit();
+    
+    memset(&deskpunk_mainWindow, 0, sizeof (deskpunk_mainWindow));
+}
+
 /**
  * @brief Sets the main window
  *
@@ -10,28 +23,18 @@
  * @param: SDL_Surface *canvas - The initialized structure of a window surface 
  * SDL
  */
-static main_window_t setMainWindow(
+static void setMainWindow(
         int width,
         int height,
         uint8_t n_displays,
         SDL_Window *desk,
         SDL_Surface *canvas)
 {
-    deskpunk_mainWindow = malloc(sizeof (deskpunk_mainWindow));
-    if (!deskpunk_mainWindow)
-    {
-        fprintf(stderr, "\e[0;31mDESKPUNK ERROR:\e[0m Failed to allocate memory for main window pointer\n");
-        SDL_DestroyWindow(desk);
-        SDL_Quit();
-
-        exit(-1);
-    }
-
-    deskpunk_mainWindow->width = width;
-    deskpunk_mainWindow->height = height;
-    deskpunk_mainWindow->n_displays = n_displays;
-    deskpunk_mainWindow->desk = desk;
-    deskpunk_mainWindow->canvas = canvas;
+    deskpunk_mainWindow.width = width;
+    deskpunk_mainWindow.height = height;
+    deskpunk_mainWindow.n_displays = n_displays;
+    deskpunk_mainWindow.desk = desk;
+    deskpunk_mainWindow.canvas = canvas;
 }
 
 /**
@@ -43,7 +46,7 @@ void deskpunk_core_init(void)
     SDL_Window *desk;
     SDL_Surface *canvas;
 
-    deskpunk_error_detect((SDL_Init() != 0));
+    deskpunk_error_detect((SDL_Init(SDL_INIT_EVERYTHING) != 0));
     deskpunk_error_detect((SDL_GetDesktopDisplayMode(0, &DM) != 0));
 
     desk = SDL_CreateWindow(
