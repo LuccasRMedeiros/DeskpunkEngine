@@ -25,19 +25,21 @@ OBJECTS = $(addprefix $(BUILD)/, $(SOURCE:src/%.c=%.o))
 
 COMPILE_RULES = $(CC) $(DEBUG) $(FLAGS) $(INCLUDES)
 
-all: $(NAME)
+all: mkdbuild $(NAME)
 
 $(NAME): $(OBJECTS)
 	$(COMPILE_RULES) main.c $(OBJECTS) $(LIBS) -o $(NAME)
 
-example: $(EXAMPLE)
+example: mkdbuild $(EXAMPLE)
 	
 $(EXAMPLE): $(OBJECTS)
 	$(COMPILE_RULES) example_sdl_opengl.c $(OBJECTS) $(LIBS) -o $(NAME)_example
 
 $(BUILD)/%.o: src/%.c
-	mkdir -p $(BUILD)
 	$(COMPILE_RULES) $< -c -o $@
+
+mkdbuild:
+	mkdir -p $(BUILD)
 
 fclean: clean
 	rm -f $(NAME)
@@ -47,6 +49,8 @@ clean:
 	rm -rf $(BUILD)
 
 re: fclean all
+
+reexample: fclean example
 
 log_vars:
 	@echo "================"
