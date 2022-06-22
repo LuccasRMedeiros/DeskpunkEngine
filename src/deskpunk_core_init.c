@@ -1,5 +1,6 @@
 #include "deskpunk_core.h"
 
+#include <SDL2/SDL_Vulkan.h>
 #include <string.h>
 
 /**
