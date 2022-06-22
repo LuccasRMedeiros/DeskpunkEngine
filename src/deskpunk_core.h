@@ -14,6 +14,7 @@
 #define DESKPUNK_CORE_H
 
 // Includes that are universally used by the core functions
+#include <SDL2/SDL.h>
 #include <deskpunk_error.h>
 
 /**
@@ -28,8 +29,10 @@ typedef struct main_window_s
     SDL_Surface *canvas; // The SDL surface structure to draw into
 } main_window_t;
 
-const *main_window_t deskpunk_mainWindow; // Global address for the main window structure
+main_window_t deskpunk_mainWindow; // Global list for the main window structure
 
 void deskpunk_core_init(void);
+void deskpunk_core_quit(void);
+void deskpunk_core_mainLoop(int (stopCondition)(void), void (routine)(void));
 
 #endif
