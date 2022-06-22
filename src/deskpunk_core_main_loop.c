@@ -12,6 +12,8 @@ void deskpunk_core_mainLoop(int (stopCondition)(void), void (routine)(void))
 {
     while (stopCondition() == 0)
     {
+        SDL_FillRect(deskpunk_mainWindow.canvas, NULL, SDL_MapRGB(deskpunk_mainWindow.canvas->format, 0x0, 0x0, 0x0)); // Fill the background with black
+        
         routine();
         SDL_UpdateWindowSurface(deskpunk_mainWindow.desk);
     }
