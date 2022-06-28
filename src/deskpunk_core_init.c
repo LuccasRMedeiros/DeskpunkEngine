@@ -47,6 +47,8 @@ void deskpunk_core_init(void)
     SDL_Window *desk;
     SDL_Surface *canvas;
 
+    unsigned int pCount;
+
     deskpunk_error_detect((SDL_Init(SDL_INIT_EVERYTHING) != 0));
     deskpunk_error_detect((SDL_GetDesktopDisplayMode(0, &DM) != 0));
 
@@ -56,9 +58,10 @@ void deskpunk_core_init(void)
                 SDL_WINDOWPOS_CENTERED,
                 DM.w,
                 DM.h,
-                SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_BORDERLESS
+                SDL_WINDOW_FULLSCREEN | SDL_WINDOW_VULKAN
             );
     deskpunk_error_detect((desk == NULL));
+    deskpunk_error_detect(SDL_Vulkan_GetInstanceExtensions(desk, &pCount, NULL));
 
     canvas = SDL_GetWindowSurface(desk);
     deskpunk_error_detect((canvas == NULL));

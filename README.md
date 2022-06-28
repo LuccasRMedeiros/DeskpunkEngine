@@ -1,4 +1,3 @@
 ## Deskpunk Engine
 
-A open source engine for 3D Desktop environments in Linux distros used with
-Virtual Reality.
+A open source engine for Virtual Reality workspaces for Linux users.

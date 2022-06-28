@@ -1,5 +1,7 @@
 #include "deskpunk_core.h"
 
+#include <SDL_vulkan.h>
+
 /**
  * @brief Keep the program runnig until the stop condition be met
  *
@@ -14,7 +16,7 @@ void deskpunk_core_mainLoop(int (stopCondition)(void), void (routine)(void))
     {
         SDL_FillRect(deskpunk_mainWindow.canvas, NULL, SDL_MapRGB(deskpunk_mainWindow.canvas->format, 0x0, 0x0, 0x0)); // Fill the background with black
         
-        routine();
+        routine(); // Callback for the user defined routine.
         SDL_UpdateWindowSurface(deskpunk_mainWindow.desk);
     }
 }
