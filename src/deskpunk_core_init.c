@@ -1,6 +1,6 @@
 #include "deskpunk_core.h"
 
-#include <SDL2/SDL_Vulkan.h>
+#include <vulkan/vulkan.h>
 #include <string.h>
 
 /**
@@ -47,8 +47,6 @@ void deskpunk_core_init(void)
     SDL_Window *desk;
     SDL_Surface *canvas;
 
-    unsigned int pCount;
-
     deskpunk_error_detect((SDL_Init(SDL_INIT_EVERYTHING) != 0));
     deskpunk_error_detect((SDL_GetDesktopDisplayMode(0, &DM) != 0));
 
@@ -61,7 +59,6 @@ void deskpunk_core_init(void)
                 SDL_WINDOW_FULLSCREEN | SDL_WINDOW_VULKAN
             );
     deskpunk_error_detect((desk == NULL));
-    deskpunk_error_detect(SDL_Vulkan_GetInstanceExtensions(desk, &pCount, NULL));
 
     canvas = SDL_GetWindowSurface(desk);
     deskpunk_error_detect((canvas == NULL));

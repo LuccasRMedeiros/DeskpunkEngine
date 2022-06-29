@@ -1,7 +1,5 @@
 #include "deskpunk_core.h"
 
-#include <SDL_vulkan.h>
-
 /**
  * @brief Keep the program runnig until the stop condition be met
  *

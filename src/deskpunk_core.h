@@ -20,16 +20,16 @@
 /**
  * @brief Structure that controls the main window
  */
-typedef struct main_window_s
+typedef struct main_window
 {
+    const vkApplicationInfo app; // The app info for vulkan API
     int width; // The total screen width
     int height; // The total screen height
-    uint8_t n_displays; // The number of displays
     SDL_Window *desk; // The SDL window structure that represent the desktop
     SDL_Surface *canvas; // The SDL surface structure to draw into
-} main_window_t;
+} s_mainWindow;
 
-main_window_t deskpunk_mainWindow; // Global list for the main window structure
+extern s_mainWindow deskpunk_mainWindow; // Global list for the main window structure
 
 void deskpunk_core_init(void);
 void deskpunk_core_quit(void);

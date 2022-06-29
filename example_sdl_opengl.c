@@ -34,7 +34,7 @@ static int stopCondition_escWasPressed(void)
     return 0;
 }
 
-int main(void)
+int SDL_main(void)
 {
     deskpunk_core_init();
 
