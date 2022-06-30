@@ -1,0 +1,3 @@
+[submodule "libs/libstring_c"]
+	path = libs/libstring_c
+	url = git@github.com:LuccasRMedeiros/libstring_c.git
