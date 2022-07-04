@@ -11,19 +11,19 @@ CC = gcc
 # Set it at compile time if needed
 DEBUG =
 
-FLAGS = -Wall -Wextra -Werror -std=c11
+FLAGS = -Wall -Wextra -Werror
 
 BUILD = build
 
 SOURCE = $(wildcard src/*.c)
 
-INCLUDES = -I ./src
+INCLUDES = -I ./src -I ./libs/libstring_c/src
 
-LIBS = -lSDL2 -lSDL2main
+LIBS = -lSDL2 -lSDL2main -lvulkan -lstring_c
 
 OBJECTS = $(addprefix $(BUILD)/, $(SOURCE:src/%.c=%.o))
 
-COMPILE_RULES = $(CC) $(DEBUG) $(FLAGS) $(INCLUDES)
+COMPILE_RULES = $(CC) $(DEBUG) $(FLAGS)
 
 all: mkdbuild $(NAME)
 
@@ -33,13 +33,16 @@ $(NAME): $(OBJECTS)
 example: mkdbuild $(EXAMPLE)
 	
 $(EXAMPLE): $(OBJECTS)
-	$(COMPILE_RULES) example_sdl_opengl.c $(OBJECTS) $(LIBS) -o $(NAME)_example
+	$(COMPILE_RULES) -std=c11 $(INCLUDES) example_sdl_opengl.c $(OBJECTS) $(LIBS) -o $(NAME)_example
 
-$(BUILD)/%.o: src/%.c
-	$(COMPILE_RULES) $< -c -o $@
+(BUILD)/%.o: src/%.c
+	$(COMPILE_RULES) -std=c11 $(INCLUDES) $< -c -o $@
 
 mkdbuild:
 	mkdir -p $(BUILD)
+
+mkstring_c:
+	make -C libs/libstring_c/ all
 
 fclean: clean
 	rm -f $(NAME)

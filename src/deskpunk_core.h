@@ -10,11 +10,13 @@
  * documentation, doxygen comments are also available with the functions
  * definitions.
  */
+
 #ifndef DESKPUNK_CORE_H
 #define DESKPUNK_CORE_H
 
 // Includes that are universally used by the core functions
 #include <SDL2/SDL.h>
+#include <vulkan/vulkan.h>
 #include <deskpunk_error.h>
 
 /**
@@ -22,11 +24,10 @@
  */
 typedef struct main_window
 {
-    const vkApplicationInfo app; // The app info for vulkan API
-    int width; // The total screen width
-    int height; // The total screen height
-    SDL_Window *desk; // The SDL window structure that represent the desktop
-    SDL_Surface *canvas; // The SDL surface structure to draw into
+    SDL_DisplayMode mode; // The SDL relevant info about the display it is drawing to
+    SDL_Window* desk; // The SDL window structure that represent the desktop
+    SDL_Surface* canvas; // The SDL surface structure to draw into
+    vkInstance instance; // The vulkan instance
 } s_mainWindow;
 
 extern s_mainWindow deskpunk_mainWindow; // Global list for the main window structure
