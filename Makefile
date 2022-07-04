@@ -11,7 +11,7 @@ CC = gcc
 # Set it at compile time if needed
 DEBUG =
 
-FLAGS = -Wall -Wextra -Werror -std=c99
+FLAGS = -Wall -Wextra -Werror -std=c11
 
 BUILD = build
 
