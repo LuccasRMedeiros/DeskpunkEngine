@@ -17,9 +17,9 @@ BUILD = build
 
 SOURCE = $(wildcard src/*.c)
 
-INCLUDES = -I ./src -I ./libs/libstring_c/src
+INCLUDES = -I ./src 
 
-LIBS = -lSDL2 -lSDL2main -lvulkan -lstring_c
+LIBS = -lSDL2 -lSDL2main -lvulkan
 
 OBJECTS = $(addprefix $(BUILD)/, $(SOURCE:src/%.c=%.o))
 
@@ -27,12 +27,12 @@ COMPILE_RULES = $(CC) $(DEBUG) $(FLAGS)
 
 all: mkdbuild $(NAME)
 
-$(NAME): $(OBJECTS)
-	$(COMPILE_RULES) main.c $(OBJECTS) $(LIBS) -o $(NAME)
+$(NAME):
+	$(COMPILE_RULES) ./main.c $(OBJECTS) $(LIBS) -o $(NAME)
 
 example: mkdbuild $(EXAMPLE)
 	
-$(EXAMPLE): $(OBJECTS)
+$(EXAMPLE):
 	$(COMPILE_RULES) -std=c11 $(INCLUDES) example_sdl_opengl.c $(OBJECTS) $(LIBS) -o $(NAME)_example
 
 (BUILD)/%.o: src/%.c
@@ -40,9 +40,6 @@ $(EXAMPLE): $(OBJECTS)
 
 mkdbuild:
 	mkdir -p $(BUILD)
-
-mkstring_c:
-	make -C libs/libstring_c/ all
 
 fclean: clean
 	rm -f $(NAME)
