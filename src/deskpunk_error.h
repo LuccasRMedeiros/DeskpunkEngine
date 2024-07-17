@@ -15,7 +15,6 @@
 // Session of includes that are universally used by the error functions
 #include <stdio.h>
 #include <stdint.h>
-#include <string_c.h>
 
 void deskpunk_error_detect(uint8_t res);
 

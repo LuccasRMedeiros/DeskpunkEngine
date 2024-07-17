@@ -27,7 +27,7 @@ typedef struct main_window
     SDL_DisplayMode mode; // The SDL relevant info about the display it is drawing to
     SDL_Window* desk; // The SDL window structure that represent the desktop
     SDL_Surface* canvas; // The SDL surface structure to draw into
-    vkInstance instance; // The vulkan instance
+    VkInstance instance; // The vulkan instance
 } s_mainWindow;
 
 extern s_mainWindow deskpunk_mainWindow; // Global list for the main window structure
